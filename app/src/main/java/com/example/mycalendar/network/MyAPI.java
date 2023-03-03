@@ -6,6 +6,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface MyAPI {
-    @GET("aizodev/wallpapeer/main/test.json")
+    @GET("ProHussain/public/main/calendar.json")
     Call<Response> getData();
 }

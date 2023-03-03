@@ -1,4 +1,4 @@
-package com.example.mycalendar;
+package com.example.mycalendar.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,16 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.mycalendar.model.Category;
+import com.example.mycalendar.Config;
+import com.example.mycalendar.R;
 import com.example.mycalendar.model.Response;
 import com.example.mycalendar.network.MyAPI;
 import com.example.mycalendar.network.RetrofitClient;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,7 +35,6 @@ public class SplashActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<Response> call, @NonNull retrofit2.Response<Response> response) {
                 if (response.isSuccessful()) {
                     Config.categories = response.body() != null ? response.body().getCategories() : null;
-                    Log.e("SplashActivity", "onResponse: " + (Config.categories != null ? Config.categories.size() : 0));
                     Config.ads = response.body() != null ? response.body().getAds() : null;
                     Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(intent);

@@ -9,7 +9,7 @@ public class Category {
     private List<String> image;
 
     @SerializedName("logo")
-    private String logo;
+    private List<String> logo;
 
     @SerializedName("name")
     private String name;
@@ -18,7 +18,7 @@ public class Category {
         return image;
     }
 
-    public String getLogo() {
+    public List<String> getLogo() {
         return logo;
     }
 
@@ -30,7 +30,7 @@ public class Category {
         this.image = image;
     }
 
-    public void setLogo(String logo) {
+    public void setLogo(List<String> logo) {
         this.logo = logo;
     }
 

@@ -1,18 +1,26 @@
-package com.example.mycalendar;
+package com.example.mycalendar.ui;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.example.mycalendar.BuildConfig;
+import com.example.mycalendar.Config;
+import com.example.mycalendar.R;
+import com.example.mycalendar.adapters.MyPageChangeCallback;
+import com.example.mycalendar.adapters.TabAdapter;
 import com.example.mycalendar.databinding.ActivityMainBinding;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -59,8 +67,22 @@ public class MainActivity extends AppCompatActivity {
             binding.drawerLayout.closeDrawer(GravityCompat.START);
             return false;
         });
-        binding.appBarMain.rvCategories.setLayoutManager(new GridLayoutManager(this, 2));
-        binding.appBarMain.rvCategories.setAdapter(new CategoryAdapter());
+
+        setUpViewPager();
+    }
+
+    private void setUpViewPager() {
+        TabAdapter adapter = new TabAdapter(this);
+        for (int i = 0; i < Config.categories.size(); i++) {
+            adapter.addTab(Config.categories.get(i).getName(), new CategoryFragment());
+        }
+        binding.appBarMain.viewPager.setAdapter(adapter);
+        binding.appBarMain.viewPager.setCurrentItem(0);
+        MyPageChangeCallback pageChangeCallback = new MyPageChangeCallback(adapter);
+        binding.appBarMain.viewPager.registerOnPageChangeCallback(pageChangeCallback);
+        new TabLayoutMediator(binding.appBarMain.tableLayout, binding.appBarMain.viewPager,
+                (tab, position) -> tab.setText(adapter.getTabTitle(position))
+        ).attach();
     }
 
     private void AboutUs() {

@@ -1,4 +1,4 @@
-package com.example.mycalendar;
+package com.example.mycalendar.adapters;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -8,9 +8,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.mycalendar.Config;
 import com.example.mycalendar.databinding.CategoryItemBinding;
+import com.example.mycalendar.ui.SliderActivity;
+
+import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
+    private final List<String> categories;
+    private static int categoryPosition;
+
+    public CategoryAdapter(List<String> categories, int categoryPosition) {
+        this.categories = categories;
+        CategoryAdapter.categoryPosition = categoryPosition;
+    }
+
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -20,12 +32,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
-        holder.bindData(position);
+        holder.bindData(categories.get(position),position);
     }
 
     @Override
     public int getItemCount() {
-        return Config.categories.size();
+        return categories.size();
     }
 
     public static class CategoryViewHolder extends RecyclerView.ViewHolder {
@@ -36,13 +48,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             binding = itemView;
         }
 
-        public void bindData(int position) {
-            binding.categoryName.setText(Config.categories.get(position).getName());
+        public void bindData(String url,int position) {
+//            binding.categoryName.setText(Config.categories.get(position).getName());
             Glide.with(binding.getRoot().getContext())
-                    .load(Config.categories.get(position).getLogo())
+                    .load(url)
                     .into(binding.categoryImage);
             binding.getRoot().setOnClickListener(v -> {
                 Intent intent = new Intent(binding.getRoot().getContext(), SliderActivity.class);
+                intent.putExtra("categoryPosition", categoryPosition);
                 intent.putExtra("position", position);
                 binding.getRoot().getContext().startActivity(intent);
             });

@@ -5,9 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +17,6 @@ import com.example.mycalendar.R;
 import com.example.mycalendar.adapters.MyPageChangeCallback;
 import com.example.mycalendar.adapters.TabAdapter;
 import com.example.mycalendar.databinding.ActivityMainBinding;
-import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity {
@@ -80,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         binding.appBarMain.viewPager.setCurrentItem(0);
         MyPageChangeCallback pageChangeCallback = new MyPageChangeCallback(adapter);
         binding.appBarMain.viewPager.registerOnPageChangeCallback(pageChangeCallback);
+        binding.appBarMain.viewPager.setOffscreenPageLimit(Config.categories.size());
         new TabLayoutMediator(binding.appBarMain.tableLayout, binding.appBarMain.viewPager,
                 (tab, position) -> tab.setText(adapter.getTabTitle(position))
         ).attach();

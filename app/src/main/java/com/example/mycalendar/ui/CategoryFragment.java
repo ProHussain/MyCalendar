@@ -41,4 +41,10 @@ public class CategoryFragment extends Fragment {
         binding.rvCategories.setLayoutManager(new GridLayoutManager(getContext(), 2));
         binding.rvCategories.setAdapter(new CategoryAdapter(categories, position));
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        binding = null;
+    }
 }

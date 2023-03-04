@@ -21,7 +21,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
-import com.example.mycalendar.BuildConfig;
 import com.example.mycalendar.Config;
 import com.example.mycalendar.R;
 import com.example.mycalendar.adapters.SliderAdapter;
@@ -30,7 +29,6 @@ import com.example.mycalendar.databinding.ActivitySliderBinding;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
